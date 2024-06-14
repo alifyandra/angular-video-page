@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { UploadPageComponent } from './upload-page/upload-page.component';
+import { VideoPlayerPageComponent } from './video-player-page/video-player-page.component';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ import { UploadPageComponent } from './upload-page/upload-page.component';
     HeaderComponent,
     LoginPageComponent,
     UploadPageComponent,
+    VideoPlayerPageComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
