@@ -1,0 +1,15 @@
+.container {
+  padding: 2em 1em;
+  display: flex;
+  justify-content: center;
+}
+
+.form-container {
+  text-align: center;
+  width: fit-content;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-evenly;
+}

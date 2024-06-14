@@ -2,7 +2,7 @@
   <div class="header-text">
     <h4>Angular Video Page</h4>
   </div>
-  <div class="greet-container">
+  <div class="greet-container" *ngIf="isLoggedIn">
     <div>Hi, {{ username }}</div>
     <button mat-flat-button>Sign Out</button>
   </div>

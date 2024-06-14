@@ -1,0 +1,20 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+
+@include mat.core();
+
+$theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$rose-palette,
+      tertiary: mat.$red-palette,
+    ),
+    density: (
+      scale: 0,
+    ),
+  )
+);
+
+$primary: mat.get-theme-color($theme, primary, 80);
+$secondary: mat.get-theme-color($theme, secondary, 50);
