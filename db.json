@@ -1,0 +1,16 @@
+{
+  "accounts": [
+    {
+      "id": "1",
+      "username": "alif",
+      "password": "123"
+    }
+  ],
+  "videos": [
+    {
+      "id": "1",
+      "title": "123.mp4",
+      "url": "abc.com/123.mp4"
+    }
+  ]
+}
