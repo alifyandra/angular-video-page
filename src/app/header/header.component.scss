@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5em;
+  // background-color: ;
+}
+.header-text {
+  display: flex;
+  align-items: center;
+}
+
+.greet-container {
+  text-align: center;
+  justify-content: center;
+}

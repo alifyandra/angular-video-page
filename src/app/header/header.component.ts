@@ -1,10 +1,18 @@
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [MatButtonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  username: string = '';
+  isLoggedIn: boolean = false;
+
+  constructor() {
+    this.username = 'Alif';
+  }
+}

@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './videos-page.component.html',
-  styleUrl: './videos-page.component.css'
+  styleUrl: './videos-page.component.scss'
 })
 export class VideosPageComponent {
 
