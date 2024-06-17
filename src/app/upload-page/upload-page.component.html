@@ -1,1 +1,15 @@
-<p>upload-page works!</p>
+<div>
+  <form>
+    <label for="formFile" class="form-label">Upload file example</label>
+    <input
+      (change)="this.onFileChange($event)"
+      class="form-control"
+      type="file"
+      id="formFile"
+      accept="video/*"
+    />
+    <button (click)="this.upload()" type="button" class="btn btn-primary mt-3">
+      Upload
+    </button>
+  </form>
+</div>
