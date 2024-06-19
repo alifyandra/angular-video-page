@@ -10,14 +10,26 @@ export class AxiosService {
     axios.defaults.headers.post['Content-Type'] = 'application/json';
   }
 
-  public uploadFile(data: any): Promise<any> {
+  public uploadFile(data: FormData, token: string): Promise<any> {
     return axios({
       method: 'post',
       url: '/upload',
       data: data,
       headers: {
         'Content-Type': 'multipart/form-data',
+        Authorization: token,
       },
+    });
+  }
+
+  public post(url: string, data: any, token?: string): Promise<any> {
+    return axios.post(url, data, { headers: { Authorization: token } });
+  }
+
+  public get(url: string, params: any, token: string): Promise<any> {
+    return axios.get(url, {
+      params: params,
+      headers: { Authorization: token },
     });
   }
 }

@@ -4,6 +4,7 @@ import { HeaderComponent } from './header/header.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { UploadPageComponent } from './upload-page/upload-page.component';
 import { VideoPlayerPageComponent } from './video-player-page/video-player-page.component';
+import { VideosPageComponent } from './videos-page/videos-page.component';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ import { VideoPlayerPageComponent } from './video-player-page/video-player-page.
     LoginPageComponent,
     UploadPageComponent,
     VideoPlayerPageComponent,
+    VideosPageComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

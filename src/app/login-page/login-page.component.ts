@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-login-page',
@@ -26,17 +27,37 @@ export class LoginPageComponent {
   @Output() onSubmitLoginEvent = new EventEmitter();
   @Output() onSubmitRegisterEvent = new EventEmitter();
 
+  constructor(private authenticationService: AuthenticationService) {}
+
   hide = signal(true);
 
   username: string = '';
   password: string = '';
 
   onSubmitLogin(): void {
-    console.log('hi ' + this.username);
+    this.authenticationService
+      .login(this.username, this.password)
+      .then((res) => {
+        console.log('login success');
+        this.authenticationService.setAuthToken(res.data.token);
+      })
+      .catch((err) => {
+        this.authenticationService.setAuthToken(null);
+        console.error(err);
+      });
   }
 
   onSubmitRegister(): void {
-    console.log('bye ' + this.username);
+    this.authenticationService
+      .register(this.username, this.password)
+      .then((res) => {
+        console.log('register success');
+        this.authenticationService.setAuthToken(res.data.token);
+      })
+      .catch((err) => {
+        this.authenticationService.setAuthToken(null);
+        console.error(err);
+      });
   }
 
   showPassEvent(event: MouseEvent) {

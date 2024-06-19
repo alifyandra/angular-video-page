@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UploadService } from '../upload.service';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-upload-page',
@@ -13,7 +14,10 @@ import { UploadService } from '../upload.service';
 export class UploadPageComponent {
   file: File | null = null;
 
-  constructor(private uploadService: UploadService) {}
+  constructor(
+    private uploadService: UploadService,
+    private authenticationService: AuthenticationService
+  ) {}
 
   onFileChange(event: any) {
     console.log(event.target.files[0]);
@@ -21,8 +25,16 @@ export class UploadPageComponent {
   }
 
   upload() {
-    if (this.file) {
-      this.uploadService.uploadFile(this.file).then((resp) => alert(resp.data));
+    if (this.file && this.authenticationService.getAuthToken()) {
+      this.uploadService
+        .uploadFile(this.file, this.authenticationService.getAuthToken()!)
+        .then((resp) => alert(resp.data))
+        .catch((err) => {
+          if (err?.response?.status === 401) {
+            this.authenticationService.setAuthToken(null);
+          }
+          console.log(err);
+        });
     } else {
       alert('Select a file');
     }
