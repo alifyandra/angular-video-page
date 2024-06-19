@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { UploadService } from '../upload.service';
-import { AuthenticationService } from '../authentication.service';
+import { UploadService } from '../services/upload.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-videos-page',
