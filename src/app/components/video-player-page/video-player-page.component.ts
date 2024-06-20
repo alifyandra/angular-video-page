@@ -5,7 +5,7 @@ import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UploadService } from '../../services/upload.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import Upload from '../../models/Upload';
@@ -34,7 +34,8 @@ export class VideoPlayerPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private uploadService: UploadService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -46,12 +47,20 @@ export class VideoPlayerPageComponent implements OnInit {
           console.log(res);
           this.video = res.data;
           this.video!.createdAt = new Date(this.video!.createdAt).toUTCString();
-          // this.video!.size = this.video.size.toLocaleString();
           console.log(this.video);
         })
         .catch((err) => {
-          console.error(err);
-          alert(err);
+          if (err.response.status === 404) {
+            alert('Video with id ' + videoId + ' does not exist.');
+            this.router.navigate(['/videos']);
+          } else if (err.response.status === 401) {
+            alert('Unauthorized');
+            this.authenticationService.setAuthToken(null);
+            this.router.navigate(['/auth']);
+          } else {
+            console.error(err);
+            alert('Internal error');
+          }
         })
         .finally(() => (this.loading = false));
     }

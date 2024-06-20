@@ -4,7 +4,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import Upload from '../../models/Upload';
 import { CommonModule } from '@angular/common';
 import { SpinnerComponent } from '../spinner/spinner.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 
 @Component({
@@ -20,7 +20,8 @@ export class VideosPageComponent {
   displayedColumns: string[] = ['id', 'name', 'size', 'uploader', 'created'];
   constructor(
     private uploadService: UploadService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) {
     if (!this.videos.length) {
       this.uploadService
@@ -35,8 +36,10 @@ export class VideosPageComponent {
             }))
         )
         .catch((err) => {
-          if (err.status === 401) {
+          if (err.response.status === 401) {
             alert('Unauthorized');
+            this.authenticationService.setAuthToken(null);
+            router.navigate(['/auth']);
           } else {
             alert('Internal error');
           }

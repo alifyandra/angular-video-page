@@ -6,7 +6,6 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../state/auth/auth.state';
 import { getLogin } from '../../state/auth/auth.selectors';
-import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SpinnerComponent } from '../spinner/spinner.component';
@@ -38,8 +37,8 @@ export class UploadPageComponent implements OnDestroy {
 
   upload() {
     this.username$ = this.store.select(getLogin).subscribe((username) => {
-      if (username) {
-        if (this.file && this.authenticationService.getAuthToken()) {
+      if (username && this.authenticationService.getAuthToken()) {
+        if (this.file) {
           this.loading = true;
           this.uploadService
             .uploadFile(
@@ -52,7 +51,9 @@ export class UploadPageComponent implements OnDestroy {
             })
             .catch((err) => {
               if (err?.response?.status === 401) {
+                alert('Unauthorized');
                 this.authenticationService.setAuthToken(null);
+                this.router.navigate(['/auth']);
               } else if (err?.response?.status === 400) {
                 alert('File name already exists.');
               }
@@ -62,6 +63,10 @@ export class UploadPageComponent implements OnDestroy {
         } else {
           alert('Select a file');
         }
+      } else {
+        alert('Unauthorized');
+        this.authenticationService.setAuthToken(null);
+        this.router.navigate(['/auth']);
       }
     });
   }
