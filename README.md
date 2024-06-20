@@ -1,6 +1,24 @@
-# AngularLoginVideo
+# AngularLoginVideo Frontend
+
+Frontend code for the AngularLoginVideo application. Backend code can be found [here](https://github.com/alifyandra/express-video-page).
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
+
+## Installation
+
+To run this application, be sure to have `node.js` installed. Then run
+
+```
+npm install -g @angular/cli
+```
+
+Then, navigate to the root of this repository and run
+
+```
+npm install
+```
+
+Finally, run the app using `ng serve`.
 
 ## Development server
 
