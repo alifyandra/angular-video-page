@@ -8,8 +8,16 @@
       id="formFile"
       accept="video/*"
     />
-    <button (click)="this.upload()" type="button" class="btn btn-primary mt-3">
+    <button
+      *ngIf="!loading; else spinner"
+      (click)="this.upload()"
+      type="button"
+      class="btn btn-primary mt-3"
+    >
       Upload
     </button>
+    <ng-template #spinner>
+      <app-spinner></app-spinner>
+    </ng-template>
   </form>
 </div>

@@ -1,4 +1,9 @@
-<div class="container">
+<div class="container" *ngIf="video; else spinner">
+  <h3>{{ video.title }}</h3>
+  <p>
+    <b>{{ video.size }} bytes</b>
+  </p>
+  <p>Uploaded by: {{ video.owner }} on {{ video.createdAt }}</p>
   <vg-player (onPlayerReady)="onPlayerReady($event)" class="player">
     <vg-overlay-play></vg-overlay-play>
     <vg-buffering></vg-buffering>
@@ -31,13 +36,13 @@
       preload="auto"
       controls
     >
-      <source
-        src="https://firebasestorage.googleapis.com/v0/b/angular-video-ce83f.appspot.com/o/videoplayback.mp4?alt=media&token=85cd277a-f7ae-47eb-90d5-7203d8b9f58c"
-        type="video/mp4"
-      />
+      <source src="{{ video.url }}" type="video/mp4" />
     </video>
   </vg-player>
 </div>
+<ng-template #spinner>
+  <app-spinner [padding]="1" />
+</ng-template>
 
 <!-- <vg-player>
   <video

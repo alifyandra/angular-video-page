@@ -29,10 +29,13 @@
       </mat-form-field>
     </mat-card-content>
     <mat-card-footer style="padding: 0em 1em 1em">
-      <div class="button-container">
+      <div class="button-container" *ngIf="!loading; else spinner">
         <button mat-raised-button (click)="onSubmitLogin()">Login</button>
         <button mat-flat-button (click)="onSubmitRegister()">Register</button>
       </div>
+      <ng-template #spinner>
+        <app-spinner [padding]="1"></app-spinner>
+      </ng-template>
     </mat-card-footer>
   </mat-card>
 </div>

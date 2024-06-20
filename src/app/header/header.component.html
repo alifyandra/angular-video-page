@@ -1,9 +1,19 @@
 <div class="container">
-  <div class="header-text">
-    <h4>Angular Video Page</h4>
+  <a [routerLink]="['/auth']">
+    <div class="header-text">
+      <h4>Angular Video Page</h4>
+    </div>
+  </a>
+  <div class="greet-container" *ngIf="username$ | async">
+    <div>Hi, {{ username$ | async }}</div>
+    <button mat-flat-button (click)="onClickSignOut()">Sign Out</button>
   </div>
-  <div class="greet-container" *ngIf="isLoggedIn">
-    <div>Hi, {{ username }}</div>
-    <button mat-flat-button>Sign Out</button>
-  </div>
+</div>
+<div class="bar" *ngIf="username$ | async">
+  <a [routerLink]="['/videos']">
+    <div>All Videos</div>
+  </a>
+  <a [routerLink]="['/upload']">
+    <div>Upload a Video</div>
+  </a>
 </div>

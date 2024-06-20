@@ -1,22 +1,33 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UploadService } from '../services/upload.service';
 import { AuthenticationService } from '../services/authentication.service';
+import { Store } from '@ngrx/store';
+import { AuthState } from '../state/auth/auth.state';
+import { getLogin } from '../state/auth/auth.selectors';
+import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-upload-page',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SpinnerComponent],
   templateUrl: './upload-page.component.html',
   styleUrl: './upload-page.component.scss',
 })
-export class UploadPageComponent {
+export class UploadPageComponent implements OnDestroy {
   file: File | null = null;
+  username$!: Subscription;
+  loading: boolean = false;
 
   constructor(
     private uploadService: UploadService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private store: Store<AuthState>,
+    private router: Router
   ) {}
 
   onFileChange(event: any) {
@@ -25,18 +36,39 @@ export class UploadPageComponent {
   }
 
   upload() {
-    if (this.file && this.authenticationService.getAuthToken()) {
-      this.uploadService
-        .uploadFile(this.file, this.authenticationService.getAuthToken()!)
-        .then((resp) => alert(resp.data))
-        .catch((err) => {
-          if (err?.response?.status === 401) {
-            this.authenticationService.setAuthToken(null);
-          }
-          console.log(err);
-        });
-    } else {
-      alert('Select a file');
+    this.username$ = this.store.select(getLogin).subscribe((username) => {
+      if (username) {
+        if (this.file && this.authenticationService.getAuthToken()) {
+          this.loading = true;
+          this.uploadService
+            .uploadFile(
+              this.file,
+              username,
+              this.authenticationService.getAuthToken()!
+            )
+            .then((resp) => {
+              alert('Upload Success');
+              this.router.navigate(['/video', resp.data]);
+            })
+            .catch((err) => {
+              if (err?.response?.status === 401) {
+                this.authenticationService.setAuthToken(null);
+              } else if (err?.response?.status === 400) {
+                alert('Duplicate file name exists.');
+              }
+              console.log(err);
+            })
+            .finally(() => (this.loading = false));
+        } else {
+          alert('Select a file');
+        }
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.username$) {
+      this.username$.unsubscribe();
     }
   }
 }
