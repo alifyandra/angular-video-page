@@ -22,6 +22,8 @@ Finally, run the app using `ng serve`.
 
 ## Development server
 
+Make sure that the backend server is properly running along with the database (instructions available on the backend repo). Once that is done, this app is hardcoded to request at `http://localhost:8080` for the backend.
+
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Code scaffolding
