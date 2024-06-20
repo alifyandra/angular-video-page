@@ -2,6 +2,8 @@
 
 Frontend code for the AngularLoginVideo application. Backend code can be found [here](https://github.com/alifyandra/express-video-page).
 
+Video demo can be found [here](https://drive.google.com/file/d/11QxDVT71hN6HKR3oOgksX3w6Ip3tVoXY/view?usp=sharing)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
 
 ## Installation
