@@ -6,6 +6,12 @@ Video demo can be found [here](https://drive.google.com/file/d/11QxDVT71hN6HKR3o
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
 
+## Development server
+
+Make sure that the backend server is properly running along with the database (instructions available on the backend repo). Once that is done, this app is hardcoded to request at `http://localhost:8080` for the backend.
+
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
 ## Installation
 
 To run this application, be sure to have `node.js` installed. Then run
@@ -21,12 +27,6 @@ npm install
 ```
 
 Finally, run the app using `ng serve`.
-
-## Development server
-
-Make sure that the backend server is properly running along with the database (instructions available on the backend repo). Once that is done, this app is hardcoded to request at `http://localhost:8080` for the backend.
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
