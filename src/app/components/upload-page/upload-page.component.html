@@ -1,0 +1,34 @@
+<div class="container">
+  <h4>Upload a Video</h4>
+  <form>
+    <input
+      (change)="this.onFileChange($event)"
+      class="form-control"
+      type="file"
+      id="formFile"
+      accept="video/*"
+    />
+    <div *ngIf="file">
+      <section class="file-info">
+        File details:
+        <ul>
+          <li>Name: {{ file.name }}</li>
+          <li>Type: {{ file.type }}</li>
+          <li>Size: {{ file.size }} bytes</li>
+        </ul>
+      </section>
+
+      <button
+        mat-flat-button
+        *ngIf="!loading; else spinner"
+        (click)="this.upload()"
+        type="button"
+      >
+        Upload
+      </button>
+      <ng-template #spinner>
+        <app-spinner></app-spinner>
+      </ng-template>
+    </div>
+  </form>
+</div>

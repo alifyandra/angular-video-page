@@ -1,20 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UploadService } from '../services/upload.service';
-import { AuthenticationService } from '../services/authentication.service';
+import { UploadService } from '../../services/upload.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { Store } from '@ngrx/store';
-import { AuthState } from '../state/auth/auth.state';
-import { getLogin } from '../state/auth/auth.selectors';
+import { AuthState } from '../../state/auth/auth.state';
+import { getLogin } from '../../state/auth/auth.selectors';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-upload-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, SpinnerComponent],
+  imports: [CommonModule, FormsModule, SpinnerComponent, MatButtonModule],
   templateUrl: './upload-page.component.html',
   styleUrl: './upload-page.component.scss',
 })
@@ -47,14 +48,13 @@ export class UploadPageComponent implements OnDestroy {
               this.authenticationService.getAuthToken()!
             )
             .then((resp) => {
-              alert('Upload Success');
               this.router.navigate(['/video', resp.data]);
             })
             .catch((err) => {
               if (err?.response?.status === 401) {
                 this.authenticationService.setAuthToken(null);
               } else if (err?.response?.status === 400) {
-                alert('Duplicate file name exists.');
+                alert('File name already exists.');
               }
               console.log(err);
             })

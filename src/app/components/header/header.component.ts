@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
-import { AuthState } from '../state/auth/auth.state';
+import { AuthState } from '../../state/auth/auth.state';
 import { Store } from '@ngrx/store';
-import { getLogin } from '../state/auth/auth.selectors';
-import { AuthenticationService } from '../services/authentication.service';
-import { logout } from '../state/auth/auth.actions';
+import { getLogin } from '../../state/auth/auth.selectors';
+import { AuthenticationService } from '../../services/authentication.service';
+import { logout } from '../../state/auth/auth.actions';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({

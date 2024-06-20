@@ -6,9 +6,9 @@ import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { UploadService } from '../services/upload.service';
-import { AuthenticationService } from '../services/authentication.service';
-import Upload from '../models/Upload';
+import { UploadService } from '../../services/upload.service';
+import { AuthenticationService } from '../../services/authentication.service';
+import Upload from '../../models/Upload';
 import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, signal } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, signal } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -6,10 +6,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthenticationService } from '../services/authentication.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { Store } from '@ngrx/store';
-import { login } from '../state/auth/auth.actions';
-import { AuthState } from '../state/auth/auth.state';
+import { login } from '../../state/auth/auth.actions';
+import { AuthState } from '../../state/auth/auth.state';
 import { Router } from '@angular/router';
 import { SpinnerComponent } from '../spinner/spinner.component';
 
@@ -29,7 +29,7 @@ import { SpinnerComponent } from '../spinner/spinner.component';
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss',
 })
-export class LoginPageComponent {
+export class LoginPageComponent implements OnInit {
   @Output() onSubmitLoginEvent = new EventEmitter();
   @Output() onSubmitRegisterEvent = new EventEmitter();
 
@@ -38,6 +38,12 @@ export class LoginPageComponent {
     private store: Store<AuthState>,
     private router: Router
   ) {}
+
+  ngOnInit(): void {
+    if (this.authenticationService.getAuthToken()) {
+      this.router.navigate(['videos']);
+    }
+  }
 
   hide = signal(true);
 
@@ -58,6 +64,11 @@ export class LoginPageComponent {
       })
       .catch((err) => {
         this.authenticationService.setAuthToken(null);
+        if (err.response.status === 401) {
+          alert('Invalid username or password');
+        } else {
+          alert('Internal server error');
+        }
         console.error(err);
       })
       .finally(() => (this.loading = false));
@@ -75,6 +86,11 @@ export class LoginPageComponent {
       })
       .catch((err) => {
         this.authenticationService.setAuthToken(null);
+        if (err.response.status === 400) {
+          alert('Username taken');
+        } else {
+          alert('Internal server error');
+        }
         console.error(err);
       })
       .finally(() => (this.loading = false));

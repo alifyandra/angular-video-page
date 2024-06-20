@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { UploadPageComponent } from './upload-page/upload-page.component';
-import { VideoPlayerPageComponent } from './video-player-page/video-player-page.component';
-import { VideosPageComponent } from './videos-page/videos-page.component';
+import { HeaderComponent } from './components/header/header.component';
+import { LoginPageComponent } from './components/login-page/login-page.component';
+import { UploadPageComponent } from './components/upload-page/upload-page.component';
+import { VideoPlayerPageComponent } from './components/video-player-page/video-player-page.component';
+import { VideosPageComponent } from './components/videos-page/videos-page.component';
 import { AuthenticationService } from './services/authentication.service';
 import { Store } from '@ngrx/store';
 import { AuthState } from './state/auth/auth.state';
