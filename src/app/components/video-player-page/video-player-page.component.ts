@@ -46,6 +46,7 @@ export class VideoPlayerPageComponent implements OnInit {
           console.log(res);
           this.video = res.data;
           this.video!.createdAt = new Date(this.video!.createdAt).toUTCString();
+          // this.video!.size = this.video.size.toLocaleString();
           console.log(this.video);
         })
         .catch((err) => {

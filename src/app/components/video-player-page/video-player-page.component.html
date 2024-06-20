@@ -1,7 +1,7 @@
 <div class="container" *ngIf="video; else spinner">
   <h3>{{ video.title }}</h3>
   <p>
-    <b>{{ video.size }} bytes</b>
+    <b>{{ video.size.toLocaleString() }} bytes</b>
   </p>
   <p>Uploaded by: {{ video.owner }} on {{ video.createdAt }}</p>
   <vg-player (onPlayerReady)="onPlayerReady($event)" class="player">
